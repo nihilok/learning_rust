@@ -1,7 +1,7 @@
 use crate::utility_funcs;
 
 pub fn first_trials() {
-        // i8
+    // i8
     let difference: i8 = 127 - 31;
     let difference2: i8 = 127 - 21;
     let result = i8::from(difference - difference2);
@@ -21,8 +21,20 @@ pub fn first_trials() {
     let arr = [x, y, z];
     println!("{:?}", arr);
 
-    let months = ["January", "February", "March", "April", "May", "June", "July",
-              "August", "September", "October", "November", "December"];
+    let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
     println!("1st month: {}\n12th month: {}", months[0], months[11]);
 
     // Array with 10 of the same value

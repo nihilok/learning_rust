@@ -1,8 +1,6 @@
 mod utility_funcs;
-mod control_flow;
-// mod old_tests;
-
+mod game_loop;
 
 fn main() {
-    control_flow::run();
+    game_loop::run();
 }
