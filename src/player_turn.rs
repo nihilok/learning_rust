@@ -16,6 +16,7 @@ fn sort_last_throw(last_throw: i32) -> i32 {
 
 pub fn run(pool: &mut i32, player_score: i32) -> (i32, i32) {
     let mut last_throw = 0;
+    let mut bet = 0;
     let new_score = loop {
         let throw_1 = sort_last_throw(last_throw);
         let throw_2 = utility_funcs::roll_dice();
@@ -23,8 +24,12 @@ pub fn run(pool: &mut i32, player_score: i32) -> (i32, i32) {
             last_throw = 0;
         }
         println!("First throw was {}", throw_1);
+        if throw_1 == 1 {
+            println!("Cannot play with 1 as first dice. Miss a go!");
+            break 0;
+        }
         println!("How much do you bet that the next throw is lower than {}?", throw_1);
-        let bet = utility_funcs::get_user_int_input();
+        bet = utility_funcs::get_user_int_input();
         utility_funcs::clear_terminal();
         last_throw = throw_1;
         if bet == 0 {
@@ -40,13 +45,8 @@ pub fn run(pool: &mut i32, player_score: i32) -> (i32, i32) {
         println!("Second throw was {}", throw_2);
         if throw_1 > throw_2 {
             println!("YES! {throw_2} is lower than {throw_1}... you win!\n");
-            if bet <= *pool {
-                *pool -= bet;
-                break bet * 2;
-            } else {
-                *pool = 0;
-                break bet + *pool;
-            }
+            *pool -= bet;
+            break bet * 2;
         } else if throw_1 < throw_2 {
             println!("OH NO! {throw_2} is higher than {throw_1}... you lose!\n");
             *pool += bet;
@@ -54,5 +54,5 @@ pub fn run(pool: &mut i32, player_score: i32) -> (i32, i32) {
         }
         println!("Throws were equal! Try again!\n")
     };
-    return (*pool, player_score + new_score);
+    return (*pool, player_score - bet + new_score);
 }
