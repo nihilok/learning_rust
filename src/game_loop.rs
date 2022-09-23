@@ -7,7 +7,12 @@ const PLAYER_STARTING_CASH: i32 = 5;
 
 pub fn run() {
     println!("How many players?");
-    let num_players: i32 = utility_funcs::get_user_int_input();
+    let num_players: i32 = loop {
+        let n = utility_funcs::get_user_int_input();
+        if n > 0 {
+            break n;
+        }
+    };
     utility_funcs::clear_terminal();
     let mut pool: i32 = num_players * PLAYER_BUY_IN;
     let p = Player {

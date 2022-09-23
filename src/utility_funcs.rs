@@ -10,7 +10,11 @@ pub fn read_line() -> String {
 }
 
 pub fn string_to_int(str_input: String) -> i32 {
-    return str_input.trim().parse::<i32>().expect("Not a number");
+    let result = str_input.trim().parse::<i32>();
+    return match result {
+        Ok(val) => val,
+        Err(error) => { println!("Error: {:?}", error); return 0 }
+    };
 }
 
 pub fn clear_terminal() {

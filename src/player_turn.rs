@@ -11,7 +11,7 @@ fn sort_last_throw(last_throw: i32) -> i32 {
         throw
     } else {
         last_throw
-    }
+    };
 }
 
 pub fn run(pool: &mut i32, player_score: i32) -> (i32, i32) {
@@ -26,21 +26,26 @@ pub fn run(pool: &mut i32, player_score: i32) -> (i32, i32) {
         println!("How much do you bet that the next throw is lower than {}?", throw_1);
         let bet = utility_funcs::get_user_int_input();
         utility_funcs::clear_terminal();
-        if bet > *pool || bet > player_score {
-            let max_bet = if bet > player_score {player_score} else {*pool};
-            println!("{bet} is greater than the maximum bet ({max_bet}). Please bet again...\n");
-            last_throw = throw_1;
+        last_throw = throw_1;
+        if bet == 0 {
+            println!("Invalid bet. Please try again...\n");
             continue;
         }
+        if bet > *pool || bet > player_score {
+            let max_bet = if bet > player_score { player_score } else { *pool };
+            println!("{bet} is greater than the maximum bet ({max_bet}). Please bet again...\n");
+            continue;
+        }
+        last_throw = 0;
         println!("Second throw was {}", throw_2);
         if throw_1 > throw_2 {
             println!("YES! {throw_2} is lower than {throw_1}... you win!\n");
             if bet <= *pool {
                 *pool -= bet;
-                break bet * 2
+                break bet * 2;
             } else {
                 *pool = 0;
-                break bet + *pool
+                break bet + *pool;
             }
         } else if throw_1 < throw_2 {
             println!("OH NO! {throw_2} is higher than {throw_1}... you lose!\n");
